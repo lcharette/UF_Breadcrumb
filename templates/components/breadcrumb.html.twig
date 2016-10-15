@@ -1,0 +1,12 @@
+{% if breadcrumbs is not empty %}
+<ol class="breadcrumb">
+  {% for item in breadcrumbs %}
+          <li{% if item.active %} class="active"{% endif %}>
+                {% if item.uri and not item.last %}<a href="{{item.uri}}">{% endif %}
+                    {% if item.first %}<i class="fa fa-home"></i> {% endif %}
+                    {{item.title}}
+                {% if item.uri %}</a>{% endif %}
+          </li>
+  {% endfor %}
+</ol>
+{% endif %}
