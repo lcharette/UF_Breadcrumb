@@ -31,7 +31,7 @@ class BreadcrumbServicesProvider
          * Supports logging in users, remembering their sessions, etc.
          */
         $container['breadcrumb'] = function ($c) {
-            return new BreadcrumbManager($c->get('config')['site.title'], $c->get('translator'));
+            return new BreadcrumbManager($c);
         };
 
         /**

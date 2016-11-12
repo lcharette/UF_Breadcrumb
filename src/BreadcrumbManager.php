@@ -2,6 +2,8 @@
 
 namespace UserFrosting\Sprinkle\Breadcrumb;
 
+use Interop\Container\ContainerInterface;
+
 /**
  * The Breadcrumbs class, which manage the breadcrumbs in the Application
  *
@@ -16,22 +18,21 @@ class BreadcrumbManager {
      */
     protected $items = [];
 
-    /**
-     * @var translator.
+     /**
+     * @var ContainerInterface The global container object, which holds all your services.
      */
-    protected $translator;
+    protected $ci;
 
     /**
      * Create a new Breadcrumbs object.
      *
      */
-    public function __construct($site_title, $translator) {
+    public function __construct(ContainerInterface $ci) {
 
-		//We'll need the translator later
-        $this->translator = $translator;
+        $this->ci = $ci;
 
 	    //TODO: Add site setting to enabled this or not
-	    $this->addItem($site_title, "/");
+	    $this->addItem($ci->config['site.title'], "/");
     }
 
     /**
@@ -46,12 +47,17 @@ class BreadcrumbManager {
 	public function addItem($name, $uri = "", $active = true){
 
 		//Translate the name. Doing this here allow to pass or not translation keys
-		$n = $this->translator->translate($name);
+		$n = $this->ci->translator->translate($name);
 
 		//Before we add the new one, any item are not the last one
 		foreach ($this->items as $key => $value) {
 			$this->items[$key]["last"] = false;
 		}
+
+		// If $uri is an array, we reconstruct the route
+        if (is_array($uri)) {
+            $uri = $this->ci->router->pathFor($uri[0], $uri[1]);
+        }
 
 		//Add the item to the array
 		$this->items[] = array(
