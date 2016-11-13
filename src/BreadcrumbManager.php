@@ -100,7 +100,7 @@ class BreadcrumbManager {
         foreach ($items as $i => $value) {
             $items[$i] = array_merge($value, [
                 'first' => ($i == 0) ? true : false,
-                'last' => ($i == count($items)) ? true : false
+                'last' => ($i == count($items) - 1) ? true : false
             ]);
         }
 
@@ -117,7 +117,7 @@ class BreadcrumbManager {
      * @param mixed $active
      * @return Array Item object
      */
-    private function prepareItem($name, $uri, $active) {
+    private function prepareItem($name = "", $uri = "", $active = true) {
 
         // If $name is an array, we passed it as name / argument for the translation function
 		if (is_array($name) && !empty($name)) {
