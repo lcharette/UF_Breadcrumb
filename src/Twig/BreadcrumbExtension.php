@@ -33,7 +33,7 @@ class BreadcrumbExtension extends \Twig_Extension
     public function getGlobals()
     {
         return array(
-            'breadcrumbs'   => $this->services['breadcrumb']->getItems()
+            'breadcrumbs'   => $this->services['breadcrumb']->get()
         );
     }
 
