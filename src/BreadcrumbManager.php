@@ -28,13 +28,8 @@ class BreadcrumbManager {
      *
      */
     public function __construct(ContainerInterface $ci) {
-
         $this->ci = $ci;
-
-	    //TODO: Add site setting to enabled this or not
-	    $this->add($ci->config['site.title'], "/");
     }
-
 
 	/**
      * Add an item at the end of the breadcrumbs list.
@@ -94,6 +89,12 @@ class BreadcrumbManager {
 	public function get() {
 
     	$items = $this->items;
+
+    	// Add the site title at the beginning. Do it on $items, because we don't
+    	// want to permanantly add it to the object, same as the `first` and `last` later
+    	// We can't use `prepend` too since it requires `$this->items`
+    	// TODO: Add site setting to enabled this or not
+	    array_unshift($items, $this->prepareItem($this->ci->config['site.title'], "/"));
 
 		// Before returning the item, we need to add a flash to the first and last one
         foreach ($items as $i => $value) {
