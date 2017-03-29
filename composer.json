@@ -1,6 +1,6 @@
 {
-    "name": "UF Breadcrumbs",
-    "type": "sprinkle",
+    "name": "lcharette/UF_Breadcrumb",
+    "type": "userfrosting-sprinkle",
     "description": "Breadcrumb service provider for UserFrosting V4",
     "keywords": ["breadcrumbs", "userfrosting"],
     "homepage": "https://github.com/lcharette/UF_Breadcrumb",
@@ -13,11 +13,14 @@
     ],
     "version": "0.0.1",
     "require": {
-        "php": ">=5.5.9"
+        "php": ">=5.6"
     },
     "autoload": {
         "psr-4": {
             "UserFrosting\\Sprinkle\\Breadcrumb\\": "src/"
         }
+    },
+    "extra": {
+        "installer-name": "Breadcrumb"
     }
 }
