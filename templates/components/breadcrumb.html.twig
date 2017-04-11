@@ -8,5 +8,13 @@
                 {% if item.uri %}</a>{% endif %}
           </li>
   {% endfor %}
+  {% if breadcrumbs|length < 2 %}
+    <li class="active">{{ page_title | raw }}</li>
+  {% endif  %}
+</ol>
+{% else %}
+<ol class="breadcrumb">
+    <li><a href="{{site.uri.public}}"><i class="fa fa-home"></i> {{site.title}}</a></li>
+    <li class="active">{{ page_title | raw }}</li>
 </ol>
 {% endif %}
