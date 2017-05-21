@@ -2,16 +2,16 @@
 Breadcrumb service provider for Userfrosting 4.
 
 ## Install
-`cd` into the sprinkle directory of UserFrosting and clone as submodule:
+Edit UserFrosting `app/sprinkles/sprinkles.json` file and add the following to the `require` list :
 ```
-git submodule add git@github.com:lcharette/UF_Breadcrumb.git Breadcrumb
+"lcharette/uf_breadcrumb": "dev-develop"
 ```
 
-Add `Breadcrumb` to the sprinkle list in `app/sprinkles/sprinkles.json`
+Run `composer update` then `composer run-script bake` to install the sprinkle.
 
 ## Usage
 
-In your controllers, you can dynamicaly add breadcrumbs to the UI. Simply use the `addItem` function of the `breadcrumb` service. 
+In your controllers, you can dynamically add breadcrumbs to the UI. Simply use the `addItem` function of the `breadcrumb` service. 
 
 ```
 $this->ci->breadcrumb->addItem("Item name", "path/");
