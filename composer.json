@@ -1,5 +1,5 @@
 {
-    "name": "lcharette/UF_Breadcrumb",
+    "name": "lcharette/uf_breadcrumb",
     "type": "userfrosting-sprinkle",
     "description": "Breadcrumb service provider for UserFrosting V4",
     "keywords": ["breadcrumbs", "userfrosting"],
