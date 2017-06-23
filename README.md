@@ -21,7 +21,7 @@ Note that the item name can also be a translation key. Path can also be optional
 
 Note that the site index is automatically added to the list. 
 
-See file `templates/components/breadcrumb.html.twig` for breadcrumbs styling.  If your UF theme doesn't include breadcrumbs automatically, simply add this line to your twig files:
+See file `templates/navigation/breadcrumb.html.twig` for breadcrumbs styling.  If your UF theme doesn't include breadcrumbs automatically, simply add this line to your twig files:
 ```
 {% include 'components/breadcrumb.html.twig' %}
 ```
