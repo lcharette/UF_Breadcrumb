@@ -8,8 +8,7 @@
  */
 namespace UserFrosting\Sprinkle\Breadcrumb;
 
-use UserFrosting\Sprinkle\Breadcrumb\ServicesProvider\BreadcrumbServicesProvider;
-use UserFrosting\Sprinkle\Core\Initialize\Sprinkle;
+use UserFrosting\System\Sprinkle\Sprinkle;
 
 /**
  * Bootstrapper class for the 'Breadcrumb' sprinkle.
@@ -18,12 +17,5 @@ use UserFrosting\Sprinkle\Core\Initialize\Sprinkle;
  */
 class Breadcrumb extends Sprinkle
 {
-    /**
-     * Register Account services.
-     */
-    public function init()
-    {
-        $serviceProvider = new BreadcrumbServicesProvider();
-        $serviceProvider->register($this->ci);
-    }
+
 }

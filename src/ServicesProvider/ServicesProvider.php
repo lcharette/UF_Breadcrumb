@@ -16,7 +16,7 @@ use UserFrosting\Sprinkle\Breadcrumb\Twig\BreadcrumbExtension;
  *
  * @author Louis Charette (https://github.com/lcharette)
  */
-class BreadcrumbServicesProvider
+class ServicesProvider
 {
     /**
      * Register UserFrosting's Breadcrumb services.
