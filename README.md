@@ -2,9 +2,20 @@
 Breadcrumb service provider for Userfrosting 4.
 
 ## Install
-Edit UserFrosting `app/sprinkles/sprinkles.json` file and add the following to the `require` list :
+Edit UserFrosting `app/sprinkles.json` file and add the following to the `require` list : `"lcharette/uf_breadcrumb": "~2.0.0"`. Also add `Breadcrumb` to the `base` list. For example:
+
 ```
-"lcharette/uf_breadcrumb": "dev-develop"
+{
+    "require": {
+        "lcharette/uf_breadcrumb": "~2.0.0"
+    },
+    "base": [
+        "core",
+        "account",
+        "admin",
+        "Breadcrumb"
+    ]
+}
 ```
 
 Run `composer update` then `composer run-script bake` to install the sprinkle.
@@ -23,5 +34,5 @@ Note that the site index is automatically added to the list.
 
 See file `templates/navigation/breadcrumb.html.twig` for breadcrumbs styling.  If your UF theme doesn't include breadcrumbs automatically, simply add this line to your twig files:
 ```
-{% include 'components/breadcrumb.html.twig' %}
+{% include 'navigation/breadcrumb.html.twig' %}
 ```
