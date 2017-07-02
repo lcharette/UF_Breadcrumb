@@ -2,12 +2,12 @@
 Breadcrumb service provider for Userfrosting 4.
 
 ## Install
-Edit UserFrosting `app/sprinkles.json` file and add the following to the `require` list : `"lcharette/uf_breadcrumb": "~2.0.0"`. Also add `Breadcrumb` to the `base` list. For example:
+Edit UserFrosting `app/sprinkles.json` file and add the following to the `require` list : `"lcharette/uf_breadcrumb": "^2.0.0"`. Also add `Breadcrumb` to the `base` list. For example:
 
 ```
 {
     "require": {
-        "lcharette/uf_breadcrumb": "~2.0.0"
+        "lcharette/uf_breadcrumb": "^2.0.0"
     },
     "base": [
         "core",
