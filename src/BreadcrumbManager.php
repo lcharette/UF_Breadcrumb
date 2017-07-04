@@ -27,7 +27,8 @@ class BreadcrumbManager {
      * Create a new Breadcrumbs object.
      *
      */
-    public function __construct(ContainerInterface $ci) {
+    public function __construct(ContainerInterface $ci)
+    {
         $this->ci = $ci;
     }
 
@@ -40,7 +41,8 @@ class BreadcrumbManager {
      * @param bool $active (default: true)
      * @return $this
      */
-    public function add($name = "", $uri = "", $active = true){
+    public function add($name = "", $uri = "", $active = true)
+    {
 
         // Make sure we have a $name setup. Route could be optional
         if ($name == "") {
@@ -63,7 +65,8 @@ class BreadcrumbManager {
      * @param bool $active (default: true)
      * @return $this
      */
-    public function prepend($name = "", $uri = "", $active = true){
+    public function prepend($name = "", $uri = "", $active = true)
+    {
 
         // Make sure we have a $name setup. Route could be optional
         if ($name == "") {
@@ -86,7 +89,8 @@ class BreadcrumbManager {
      * @access public
      * @return Array the Breadcrumbs object list
      */
-    public function get() {
+    public function get()
+    {
 
         $items = $this->items;
 
@@ -117,7 +121,8 @@ class BreadcrumbManager {
      * @param mixed $active
      * @return Array Item object
      */
-    private function prepareItem($name = "", $uri = "", $active = true) {
+    private function prepareItem($name = "", $uri = "", $active = true)
+    {
 
         // If $name is an array, we passed it as name / argument for the translation function
         if (is_array($name) && !empty($name)) {
