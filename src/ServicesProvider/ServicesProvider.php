@@ -1,11 +1,14 @@
 <?php
-/**
- * UF Breadcrumb (https://github.com/lcharette/UF_Breadcrumb)
+
+/*
+ * UF Breadcrumb
  *
- * @link      https://github.com/lcharette/GASTON
+ * @link https://github.com/lcharette/UF_Breadcrumb
+ *
  * @copyright Copyright (c) 2016 Louis Charette
- * @license
+ * @license https://github.com/lcharette/UF_Breadcrumb/blob/master/LICENSE (MIT License)
  */
+
 namespace UserFrosting\Sprinkle\Breadcrumb\ServicesProvider;
 
 use UserFrosting\Sprinkle\Breadcrumb\BreadcrumbManager;
@@ -25,7 +28,7 @@ class ServicesProvider
      */
     public function register($container)
     {
-        /**
+        /*
          * Authentication service.
          *
          * Supports logging in users, remembering their sessions, etc.
@@ -34,7 +37,7 @@ class ServicesProvider
             return new BreadcrumbManager($c);
         };
 
-        /**
+        /*
          * Extends the 'view' service with the BreadcrumbExtension for Twig.
          *
          * Adds account-specific functions, globals, filters, etc to Twig.
