@@ -1,6 +1,6 @@
 # Breadcrumb Sprinkle for [UserFrosting 4](https://www.userfrosting.com)
 
-[![UserFrosting Version](https://img.shields.io/badge/UserFrosting->=%204.1.16-brightgreen.svg)](https://github.com/userfrosting/UserFrosting) [![Donate](https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-brightgreen.svg)](https://ko-fi.com/A7052ICP)
+[![StyleCI](https://github.styleci.io/repos/70994902/shield?branch=master)](https://github.styleci.io/repos/70994902) [![UserFrosting Version](https://img.shields.io/badge/UserFrosting->=%204.1.16-brightgreen.svg)](https://github.com/userfrosting/UserFrosting) [![Donate](https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-brightgreen.svg)](https://ko-fi.com/A7052ICP)
 
 Breadcrumb services provider for Sprinkle for [UserFrosting 4](https://www.userfrosting.com).
 
