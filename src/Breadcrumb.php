@@ -1,11 +1,14 @@
 <?php
-/**
- * UF Breadcrumb (https://github.com/lcharette/UF_Breadcrumb)
+
+/*
+ * UF Breadcrumb
  *
- * @link      https://github.com/lcharette/GASTON
+ * @link https://github.com/lcharette/UF_Breadcrumb
+ *
  * @copyright Copyright (c) 2016 Louis Charette
- * @license
+ * @license https://github.com/lcharette/UF_Breadcrumb/blob/master/LICENSE (MIT License)
  */
+
 namespace UserFrosting\Sprinkle\Breadcrumb;
 
 use UserFrosting\System\Sprinkle\Sprinkle;
@@ -17,5 +20,4 @@ use UserFrosting\System\Sprinkle\Sprinkle;
  */
 class Breadcrumb extends Sprinkle
 {
-
 }

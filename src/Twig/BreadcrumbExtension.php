@@ -1,11 +1,14 @@
 <?php
-/**
- * UF Breadcrumb (https://github.com/lcharette/UF_Breadcrumb)
+
+/*
+ * UF Breadcrumb
  *
- * @link      https://github.com/lcharette/GASTON
+ * @link https://github.com/lcharette/UF_Breadcrumb
+ *
  * @copyright Copyright (c) 2016 Louis Charette
- * @license
+ * @license https://github.com/lcharette/UF_Breadcrumb/blob/master/LICENSE (MIT License)
  */
+
 namespace UserFrosting\Sprinkle\Breadcrumb\Twig;
 
 use Interop\Container\ContainerInterface;
@@ -17,7 +20,6 @@ use Interop\Container\ContainerInterface;
  */
 class BreadcrumbExtension extends \Twig_Extension
 {
-
     protected $services;
 
     public function __construct(ContainerInterface $services)
@@ -32,9 +34,8 @@ class BreadcrumbExtension extends \Twig_Extension
 
     public function getGlobals()
     {
-        return array(
-            'breadcrumbs'   => $this->services['breadcrumb']->get()
-        );
+        return [
+            'breadcrumbs'   => $this->services['breadcrumb']->get(),
+        ];
     }
-
 }
