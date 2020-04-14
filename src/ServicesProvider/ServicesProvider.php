@@ -1,12 +1,11 @@
 <?php
 
 /*
- * UF Breadcrumb
+ * UserFrosting Breadcrumb Sprinkle
  *
- * @link https://github.com/lcharette/UF_Breadcrumb
- *
- * @copyright Copyright (c) 2016 Louis Charette
- * @license https://github.com/lcharette/UF_Breadcrumb/blob/master/LICENSE (MIT License)
+ * @link      https://github.com/lcharette/UF_Breadcrumb
+ * @copyright Copyright (c) 2020 Louis Charette
+ * @license   https://github.com/lcharette/UF_Breadcrumb/blob/master/LICENSE (MIT License)
  */
 
 namespace UserFrosting\Sprinkle\Breadcrumb\ServicesProvider;
