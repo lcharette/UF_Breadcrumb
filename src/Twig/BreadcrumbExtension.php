@@ -10,8 +10,8 @@
 
 namespace UserFrosting\Sprinkle\Breadcrumb\Twig;
 
-use Psr\Container\ContainerInterface;
 use Twig\Extension\AbstractExtension;
+use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager;
 
 /**
  * Extends Twig functionality for the Breadcrumb sprinkle.
@@ -19,13 +19,13 @@ use Twig\Extension\AbstractExtension;
 class BreadcrumbExtension extends AbstractExtension
 {
     /**
-     * @var ContainerInterface
+     * @var Manager
      */
-    protected $ci;
+    protected $breadcrumb;
 
-    public function __construct(ContainerInterface $ci)
+    public function __construct(Manager $breadcrumb)
     {
-        $this->ci = $ci;
+        $this->breadcrumb = $breadcrumb;
     }
 
     /**
@@ -37,12 +37,12 @@ class BreadcrumbExtension extends AbstractExtension
     }
 
     /**
-     * @return array<string,string>
+     * @return array<string,array<string,string>>
      */
     public function getGlobals()
     {
         return [
-            'breadcrumbs' => $this->ci->breadcrumb->get(),
+            'breadcrumbs' => $this->breadcrumb->generate(),
         ];
     }
 }

@@ -30,6 +30,8 @@ class ServicesProvider
          * Authentication service.
          *
          * Supports logging in users, remembering their sessions, etc.
+         *
+         * @return \UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager
          */
         $container['breadcrumb'] = function ($c) {
             return new Manager($c->config, $c->translator, $c->router);
@@ -42,7 +44,7 @@ class ServicesProvider
          */
         $container->extend('view', function ($view, $c) {
             $twig = $view->getEnvironment();
-            $extension = new BreadcrumbExtension($c);
+            $extension = new BreadcrumbExtension($c->breadcrumb);
             $twig->addExtension($extension);
 
             return $view;
