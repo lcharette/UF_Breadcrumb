@@ -11,9 +11,9 @@
 namespace UserFrosting\Sprinkle\Breadcrumb\Breadcrumb;
 
 use InvalidArgumentException;
-use UserFrosting\Support\Repository\Repository as Config;
 use UserFrosting\I18n\Translator;
 use UserFrosting\Sprinkle\Core\Router;
+use UserFrosting\Support\Repository\Repository as Config;
 
 /**
  * The Breadcrumbs class, which manage the breadcrumbs in the Application.

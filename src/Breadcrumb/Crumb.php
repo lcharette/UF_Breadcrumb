@@ -11,7 +11,7 @@
 namespace UserFrosting\Sprinkle\Breadcrumb\Breadcrumb;
 
 /**
- * Representation of a breadcrumb element
+ * Representation of a breadcrumb element.
  */
 class Crumb
 {
@@ -55,7 +55,7 @@ class Crumb
     }
 
     /**
-     * Set the title message key for translator
+     * Set the title message key for translator.
      *
      * @param string $title       The title message key for translator
      * @param array  $placeholder
@@ -71,7 +71,7 @@ class Crumb
     }
 
     /**
-     * Get the title message key for translator
+     * Get the title message key for translator.
      *
      * @return string
      */
@@ -81,7 +81,7 @@ class Crumb
     }
 
     /**
-     * Get placeholder array for the title message into translator
+     * Get placeholder array for the title message into translator.
      *
      * @return array
      */
@@ -91,7 +91,7 @@ class Crumb
     }
 
     /**
-     * Set the uri
+     * Set the uri.
      *
      * @param string $route_name The uri
      * @param array  $data
@@ -107,7 +107,7 @@ class Crumb
     }
 
     /**
-     * Get the uri
+     * Get the uri.
      *
      * @return string
      */
@@ -117,7 +117,7 @@ class Crumb
     }
 
     /**
-     * Get the value of route_data
+     * Get the value of route_data.
      *
      * @return array
      */
@@ -127,7 +127,7 @@ class Crumb
     }
 
     /**
-     * Set is this an active node
+     * Set is this an active node.
      *
      * @param bool $active Is this an active node
      *
@@ -141,7 +141,7 @@ class Crumb
     }
 
     /**
-     * Get is this an active node
+     * Get is this an active node.
      *
      * @return bool
      */
