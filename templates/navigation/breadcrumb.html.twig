@@ -2,10 +2,10 @@
 <ol class="breadcrumb">
   {% for item in breadcrumbs %}
           <li{% if item.active %} class="active"{% endif %}>
-                {% if item.uri and not item.last %}<a href="{{item.uri}}">{% endif %}
-                    {% if item.first %}<i class="fa fa-home"></i> {% endif %}
+                {% if item.uri and not item.active %}<a href="{{item.uri}}">{% endif %}
+                    {% if item.first %}<i class="fa fa-home"></i> {% endif %} <!-- TODO : Change first to Twig function? -->
                     {{item.title}}
-                {% if item.uri %}</a>{% endif %}
+                {% if item.uri and not item.active %}</a>{% endif %}
           </li>
   {% endfor %}
   {% if breadcrumbs|length < 2 %}

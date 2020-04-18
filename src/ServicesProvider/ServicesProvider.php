@@ -10,22 +10,21 @@
 
 namespace UserFrosting\Sprinkle\Breadcrumb\ServicesProvider;
 
-use UserFrosting\Sprinkle\Breadcrumb\BreadcrumbManager;
+use Psr\Container\ContainerInterface;
+use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager;
 use UserFrosting\Sprinkle\Breadcrumb\Twig\BreadcrumbExtension;
 
 /**
  * Registers services for the Breadcrumb sprinkle.
- *
- * @author Louis Charette (https://github.com/lcharette)
  */
 class ServicesProvider
 {
     /**
      * Register UserFrosting's Breadcrumb services.
      *
-     * @param Container $container A DI container implementing ArrayAccess and container-interop.
+     * @param ContainerInterface $container A DI container implementing ArrayAccess and container-interop.
      */
-    public function register($container)
+    public function register(ContainerInterface $container)
     {
         /*
          * Authentication service.
@@ -33,7 +32,7 @@ class ServicesProvider
          * Supports logging in users, remembering their sessions, etc.
          */
         $container['breadcrumb'] = function ($c) {
-            return new BreadcrumbManager($c);
+            return new Manager($c->config, $c->translator, $c->router);
         };
 
         /*

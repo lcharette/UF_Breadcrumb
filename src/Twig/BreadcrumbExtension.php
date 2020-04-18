@@ -10,31 +10,39 @@
 
 namespace UserFrosting\Sprinkle\Breadcrumb\Twig;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
+use Twig\Extension\AbstractExtension;
 
 /**
  * Extends Twig functionality for the Breadcrumb sprinkle.
- *
- * @author Louis Charette (https://github.com/lcharette)
  */
-class BreadcrumbExtension extends \Twig_Extension
+class BreadcrumbExtension extends AbstractExtension
 {
-    protected $services;
+    /**
+     * @var ContainerInterface
+     */
+    protected $ci;
 
-    public function __construct(ContainerInterface $services)
+    public function __construct(ContainerInterface $ci)
     {
-        $this->services = $services;
+        $this->ci = $ci;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'userfrosting/breadcrumb';
     }
 
+    /**
+     * @return array<string,string>
+     */
     public function getGlobals()
     {
         return [
-            'breadcrumbs'   => $this->services['breadcrumb']->get(),
+            'breadcrumbs' => $this->ci->breadcrumb->get(),
         ];
     }
 }
