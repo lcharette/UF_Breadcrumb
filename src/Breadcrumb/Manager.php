@@ -12,6 +12,7 @@ namespace UserFrosting\Sprinkle\Breadcrumb\Breadcrumb;
 
 use InvalidArgumentException;
 use UserFrosting\I18n\Translator;
+use UserFrosting\I18n\MessageTranslator;
 use UserFrosting\Sprinkle\Core\Router;
 use UserFrosting\Support\Repository\Repository as Config;
 
@@ -31,7 +32,7 @@ class Manager
     protected $config;
 
     /**
-     * @var Translator
+     * @var Translator|MessageTranslator
      */
     protected $translator;
 
@@ -43,12 +44,17 @@ class Manager
     /**
      * Create a new Manager object.
      *
-     * @param Config     $config
-     * @param Translator $translator
-     * @param Router     $router
+     * @param Config                       $config
+     * @param Translator|MessageTranslator $translator
+     * @param Router                       $router
      */
-    public function __construct(Config $config, Translator $translator, Router $router)
+    public function __construct(Config $config, $translator, Router $router)
     {
+        // Support for older version of Translator
+        if (!$translator instanceof Translator && !$translator instanceof MessageTranslator) {
+            throw new InvalidArgumentException('Translator must be an instance of Translator.');
+        }
+
         $this->config = $config;
         $this->translator = $translator;
         $this->router = $router;

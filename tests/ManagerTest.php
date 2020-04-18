@@ -46,6 +46,20 @@ class ManagerTest extends TestCase
     }
 
     /**
+     * Test for support of older version of translator
+     * @depends testConstructor
+     */
+    public function testConstructorOldVersion(): void
+    {
+        $config = m::mock(Repository::class);
+        $translator = m::mock('\UserFrosting\I18n\MessageTranslator');
+        $router = m::mock(Router::class);
+
+        $manager = new Manager($config, $translator, $router);
+        $this->assertInstanceOf(Manager::class, $manager);
+    }
+
+    /**
      * @depends testConstructor
      */
     public function testBasics(): void
