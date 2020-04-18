@@ -62,6 +62,19 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstructor
      */
+    public function testConstructorInvalidTranlator(): void
+    {
+        $config = m::mock(Repository::class);
+        $translator = m::mock('\UserFrosting\I18n\FooTranslator');
+        $router = m::mock(Router::class);
+
+        $this->expectException(InvalidArgumentException::class);
+        $manager = new Manager($config, $translator, $router);
+    }
+
+    /**
+     * @depends testConstructor
+     */
     public function testBasics(): void
     {
         $config = m::mock(Repository::class);
