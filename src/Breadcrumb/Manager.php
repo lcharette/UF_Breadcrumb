@@ -11,8 +11,8 @@
 namespace UserFrosting\Sprinkle\Breadcrumb\Breadcrumb;
 
 use InvalidArgumentException;
-use UserFrosting\I18n\Translator;
 use UserFrosting\I18n\MessageTranslator;
+use UserFrosting\I18n\Translator;
 use UserFrosting\Sprinkle\Core\Router;
 use UserFrosting\Support\Repository\Repository as Config;
 
