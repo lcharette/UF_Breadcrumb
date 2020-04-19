@@ -11,12 +11,13 @@
 namespace UserFrosting\Sprinkle\Breadcrumb\Twig;
 
 use Twig\Extension\AbstractExtension;
+use Twig\Extension\GlobalsInterface;
 use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager;
 
 /**
  * Extends Twig functionality for the Breadcrumb sprinkle.
  */
-class BreadcrumbExtension extends AbstractExtension
+class BreadcrumbExtension  extends AbstractExtension implements GlobalsInterface
 {
     /**
      * @var Manager

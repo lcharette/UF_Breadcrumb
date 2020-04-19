@@ -261,7 +261,19 @@ class ManagerTest extends TestCase
      */
     public function testService(): void
     {
-        $service = $this->ci->breadcrumb;
-        $this->assertInstanceOf(Manager::class, $service);
+        /** @var Manager */
+        $breadcrumb = $this->ci->breadcrumb;
+        $this->assertInstanceOf(Manager::class, $breadcrumb);
+
+        // Test with real life services
+        $expected = [
+            [
+                'title'  => 'Foo',
+                'uri'    => '/Bar',
+                'active' => true,
+            ],
+        ];
+        $breadcrumb->add('Foo', '/Bar');
+        $this->assertSame($expected, $breadcrumb->generate(false));
     }
 }
