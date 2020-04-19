@@ -16,9 +16,7 @@ use UserFrosting\Sprinkle\Breadcrumb\Twig\BreadcrumbExtension;
 use UserFrosting\Tests\TestCase;
 
 /**
- * ManagerTest
- *
- * Perform test for UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager
+ * Perform test for UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\BreadcrumbExtension
  */
 class BreadcrumbExtensionTest extends TestCase
 {

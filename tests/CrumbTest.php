@@ -27,8 +27,7 @@ class CrumbTest extends TestCase
 
         $this->assertSame('', $crumb->getTitle());
         $this->assertSame([], $crumb->getTitlePlaceholder());
-        $this->assertSame('', $crumb->getRouteName());
-        $this->assertSame([], $crumb->getRouteData());
+        $this->assertSame('', $crumb->getRoute());
         $this->assertSame(false, $crumb->getActive());
     }
 
@@ -42,8 +41,7 @@ class CrumbTest extends TestCase
 
         $this->assertSame($title, $crumb->getTitle());
         $this->assertSame([], $crumb->getTitlePlaceholder());
-        $this->assertSame($route, $crumb->getRouteName());
-        $this->assertSame([], $crumb->getRouteData());
+        $this->assertSame($route, $crumb->getRoute());
         $this->assertSame($active, $crumb->getActive());
     }
 
@@ -54,14 +52,13 @@ class CrumbTest extends TestCase
     {
         $crumb = new Crumb();
         $crumb->setTitle($title)
-              ->setRoute($route)
+              ->setUri($route)
               ->setActive($active);
         $this->assertInstanceOf(Crumb::class, $crumb);
 
         $this->assertSame($title, $crumb->getTitle());
         $this->assertSame([], $crumb->getTitlePlaceholder());
-        $this->assertSame($route, $crumb->getRouteName());
-        $this->assertSame([], $crumb->getRouteData());
+        $this->assertSame($route, $crumb->getRoute());
         $this->assertSame($active, $crumb->getActive());
     }
 
@@ -78,8 +75,7 @@ class CrumbTest extends TestCase
 
         $this->assertSame($title, $crumb->getTitle());
         $this->assertSame($placeholders, $crumb->getTitlePlaceholder());
-        $this->assertSame($route, $crumb->getRouteName());
-        $this->assertSame($data, $crumb->getRouteData());
+        $this->assertSame([$route, $data], $crumb->getRoute());
         $this->assertSame($active, $crumb->getActive());
     }
 

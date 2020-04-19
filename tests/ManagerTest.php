@@ -108,22 +108,22 @@ class ManagerTest extends TestCase
         $config->shouldReceive('offsetGet')->withArgs(['site.title'])->andReturn('My Site');
 
         $translator = m::mock(Translator::class);
-        $translator->shouldReceive('translate')->withArgs(['My Site', []])->andReturn('My Site');
-        $translator->shouldReceive('translate')->withArgs(['First Title', []])->andReturn('First Title');
-        $translator->shouldReceive('translate')->withArgs(['Middle Title', []])->andReturn('Middle Title');
-        $translator->shouldReceive('translate')->withArgs(['Last Title', ['foo' => 'bar']])->andReturn('Last Title');
+        $translator->shouldReceive('translate')->withArgs(['My Site', []])->once()->andReturn('My Site');
+        $translator->shouldReceive('translate')->withArgs(['First Title', []])->twice()->andReturn('First Title');
+        $translator->shouldReceive('translate')->withArgs(['Middle Title', []])->twice()->andReturn('Middle Title');
+        $translator->shouldReceive('translate')->withArgs(['Last Title', ['foo' => 'bar']])->twice()->andReturn('Last Title');
 
         $router = m::mock(Router::class);
-        $router->shouldReceive('pathFor')->withArgs(['/', []])->andReturn('/');
-        $router->shouldReceive('pathFor')->withArgs(['Bar', []])->andReturn('/Bar');
-        $router->shouldReceive('pathFor')->withArgs(['/Middle', []])->andReturn('/middle');
-        $router->shouldReceive('pathFor')->withArgs(['/Foo', ['Bar' => 'Foo']])->andReturn('/Foo');
+        $router->shouldReceive('pathFor')->withArgs(['/', []])->never();
+        $router->shouldReceive('pathFor')->withArgs(['Bar', []])->never();
+        $router->shouldReceive('pathFor')->withArgs(['/Middle', []])->never();
+        $router->shouldReceive('pathFor')->withArgs(['Foo', ['Bar' => 'Foo']])->twice()->andReturn('/Foo');
 
         $manager = new Manager($config, $translator, $router);
 
         $crumb = new Crumb();
         $crumb->setTitle('Last Title', ['foo' => 'bar'])
-              ->setRoute('/Foo', ['Bar' => 'Foo'])
+              ->setRoute('Foo', ['Bar' => 'Foo'])
               ->setActive(true);
 
         $manager->addCrumb(new Crumb('Middle Title', '/Middle', false))
@@ -140,12 +140,12 @@ class ManagerTest extends TestCase
             ],
             [
                 'title'  => 'First Title',
-                'uri'    => '/Bar',
+                'uri'    => 'Bar',
                 'active' => false,
             ],
             [
                 'title'  => 'Middle Title',
-                'uri'    => '/middle',
+                'uri'    => '/Middle',
                 'active' => false,
             ],
             [
@@ -158,12 +158,12 @@ class ManagerTest extends TestCase
         $this->assertSame([
             [
                 'title'  => 'First Title',
-                'uri'    => '/Bar',
+                'uri'    => 'Bar',
                 'active' => false,
             ],
             [
                 'title'  => 'Middle Title',
-                'uri'    => '/middle',
+                'uri'    => '/Middle',
                 'active' => false,
             ],
             [
@@ -183,21 +183,21 @@ class ManagerTest extends TestCase
         $config->shouldReceive('offsetGet')->withArgs(['site.title'])->andReturn('My Site');
 
         $translator = m::mock(Translator::class);
-        $translator->shouldReceive('translate')->withArgs(['My Site', []])->andReturn('My Site');
-        $translator->shouldReceive('translate')->withArgs(['First Title', []])->andReturn('First Title');
-        $translator->shouldReceive('translate')->withArgs(['Middle Title', []])->andReturn('Middle Title');
-        $translator->shouldReceive('translate')->withArgs(['Last Title', ['foo' => 'bar']])->andReturn('Last Title');
+        $translator->shouldReceive('translate')->withArgs(['My Site', []])->once()->andReturn('My Site');
+        $translator->shouldReceive('translate')->withArgs(['First Title', []])->once()->andReturn('First Title');
+        $translator->shouldReceive('translate')->withArgs(['Middle Title', []])->once()->andReturn('Middle Title');
+        $translator->shouldReceive('translate')->withArgs(['Last Title', ['foo' => 'bar']])->once()->andReturn('Last Title');
 
         $router = m::mock(Router::class);
-        $router->shouldReceive('pathFor')->withArgs(['/', []])->andReturn('/');
-        $router->shouldReceive('pathFor')->withArgs(['Bar', []])->andReturn('/Bar');
-        $router->shouldReceive('pathFor')->withArgs(['/Middle', []])->andReturn('/middle');
-        $router->shouldReceive('pathFor')->withArgs(['/Foo', ['Bar' => 'Foo']])->andReturn('/Foo');
+        $router->shouldReceive('pathFor')->withArgs(['/', []])->never();
+        $router->shouldReceive('pathFor')->withArgs(['Bar', []])->never();
+        $router->shouldReceive('pathFor')->withArgs(['/Middle', []])->never();
+        $router->shouldReceive('pathFor')->withArgs(['Foo', ['Bar' => 'Foo']])->once()->andReturn('/Foo');
 
         $manager = new Manager($config, $translator, $router);
 
         $manager->add('Middle Title', '/Middle', false)
-                ->add(['Last Title', ['foo' => 'bar']], ['/Foo', ['Bar' => 'Foo']], true)
+                ->add(['Last Title', ['foo' => 'bar']], ['Foo', ['Bar' => 'Foo']], true)
                 ->prepend('First Title', 'Bar', false);
 
         $this->assertCount(3, $manager->getCrumbs());
@@ -210,12 +210,12 @@ class ManagerTest extends TestCase
             ],
             [
                 'title'  => 'First Title',
-                'uri'    => '/Bar',
+                'uri'    => 'Bar',
                 'active' => false,
             ],
             [
                 'title'  => 'Middle Title',
-                'uri'    => '/middle',
+                'uri'    => '/Middle',
                 'active' => false,
             ],
             [

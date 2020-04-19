@@ -11,7 +11,7 @@ If you need help using this sprinkle or found any bug, feels free to open an iss
 # Installation
 Edit UserFrosting `app/sprinkles.json` file and add the following to the `require` list : `"lcharette/uf_breadcrumb": "^2.0.0"`. Also add `Breadcrumb` to the `base` list. For example:
 
-```
+```json
 {
     "require": {
         "lcharette/uf_breadcrumb": "^2.0.0"
@@ -31,7 +31,7 @@ Run `composer update` then `php bakery bake` to install the sprinkle.
 
 Breadcrumbs hierarchy cannot be autodetected right now. You have to define your hierarchy manually in your controllers. To dynamically add breadcrumbs to the UI, simply use the `add` method of the `breadcrumb` service:
 
-```
+```php
 // add($name = "", $uri = "", $active = true)
 $this->ci->breadcrumb->add("Item name", "path/");
 ```
@@ -40,7 +40,7 @@ Note that the item name can also be a translation key. Path can be optional if y
 
 You can also use the `prepend` method to add a new item to the beginning of the list:
 
-```
+```php
 //prepend($name = "", $uri = "", $active = true)
 $this->ci->breadcrumb->prepend("Item name", "path/");
 ```
@@ -49,7 +49,7 @@ Note that the site index is automatically added to the beginning of the list, wh
 
 You can also chain multiple methods :
 
-```
+```php
 $this->ci->breadcrumb->add("Projects", "projects/")->add("Project Foo", "projects/foo");
 ```
 
@@ -59,7 +59,7 @@ $this->ci->breadcrumb->add("Projects", "projects/")->add("Project Foo", "project
 
 The default UserFrosting layouts and themes will pick up the breadcrumbs automatically. If your UserFrosting theme doesn't include breadcrumbs automatically, simply add this line to your twig files:
 
-```
+```html
 {% include 'navigation/breadcrumb.html.twig' with {page_title: block('page_title')} %}
 ```
 

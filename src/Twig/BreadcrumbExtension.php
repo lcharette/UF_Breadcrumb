@@ -37,7 +37,7 @@ class BreadcrumbExtension extends AbstractExtension
     }
 
     /**
-     * @return array<string,array<string,string>>
+     * @return array<string,mixed>
      */
     public function getGlobals()
     {

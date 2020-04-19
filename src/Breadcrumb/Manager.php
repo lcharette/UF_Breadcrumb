@@ -144,7 +144,7 @@ class Manager
 
         // If $uri is an array, we reconstruct the route
         if (is_string($uri)) {
-            $crumb->setRoute($uri);
+            $crumb->setUri($uri);
         } elseif (is_array($uri) && !empty($uri)) {
             $args = (isset($uri[1])) ? $uri[1] : [];
             $crumb->setRoute($uri[0], $args);
@@ -173,7 +173,7 @@ class Manager
      *
      * @param bool $addSiteTitle
      *
-     * @return array<string,string>
+     * @return array<array<string,string|bool>>
      */
     public function generate(bool $addSiteTitle = true): array
     {
@@ -205,9 +205,15 @@ class Manager
      */
     protected function crumbToArray(Crumb $crumb): array
     {
+        $route = $crumb->getRoute();
+        if (!is_string($route)) {
+            list($name, $data) = $route;
+            $route = $this->router->pathFor($name, $data);
+        }
+
         return [
             'title'  => $this->translator->translate($crumb->getTitle(), $crumb->getTitlePlaceholder()),
-            'uri'    => $this->router->pathFor($crumb->getRouteName(), $crumb->getRouteData()),
+            'uri'    => $route,
             'active' => $crumb->getActive(),
         ];
     }

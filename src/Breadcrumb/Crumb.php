@@ -26,17 +26,12 @@ class Crumb
     protected $title_placeholder;
 
     /**
-     * @var string The uri
+     * @var string|array<string,array> The route or uri.
      */
-    protected $route_name;
+    protected $route;
 
     /**
-     * @var array
-     */
-    protected $route_data;
-
-    /**
-     * @var bool Is this an active node
+     * @var bool Is this an active node.
      */
     protected $active;
 
@@ -50,7 +45,7 @@ class Crumb
     public function __construct(string $title = '', string $uri = '', bool $active = false)
     {
         $this->setTitle($title);
-        $this->setRoute($uri);
+        $this->setUri($uri);
         $this->setActive($active);
     }
 
@@ -93,15 +88,21 @@ class Crumb
     /**
      * Set the uri.
      *
-     * @param string $route_name The uri
+     * @param string $name The uri
      * @param array  $data
      *
      * @return self
      */
     public function setRoute(string $name, array $data = [])
     {
-        $this->route_name = $name;
-        $this->route_data = $data;
+        $this->route = [$name, $data];
+
+        return $this;
+    }
+
+    public function setUri(string $uri)
+    {
+        $this->route = $uri;
 
         return $this;
     }
@@ -109,21 +110,11 @@ class Crumb
     /**
      * Get the uri.
      *
-     * @return string
+     * @return string|array<string,array>
      */
-    public function getRouteName()
+    public function getRoute()
     {
-        return $this->route_name;
-    }
-
-    /**
-     * Get the value of route_data.
-     *
-     * @return array
-     */
-    public function getRouteData()
-    {
-        return $this->route_data;
+        return $this->route;
     }
 
     /**
