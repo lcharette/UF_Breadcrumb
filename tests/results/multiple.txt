@@ -1,0 +1,7 @@
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> FOOBAR SITE</a></li>
+    <li><a href="/Bar">Bar</a></li>
+    <li>Foo</li>
+    <li><a href="/blah">Blah</a></li>
+    <li class="active">Foo Bar</li>
+</ol>

@@ -17,7 +17,7 @@ use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager;
 /**
  * Extends Twig functionality for the Breadcrumb sprinkle.
  */
-class BreadcrumbExtension  extends AbstractExtension implements GlobalsInterface
+class BreadcrumbExtension extends AbstractExtension implements GlobalsInterface
 {
     /**
      * @var Manager
