@@ -8,7 +8,7 @@
  * @license   https://github.com/lcharette/UF_Breadcrumb/blob/master/LICENSE (MIT License)
  */
 
-namespace UserFrosting\Sprinkle\Breadcrumb\Tests;
+namespace UserFrosting\Sprinkle\Breadcrumb\Tests\Unit;
 
 use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Crumb;
 use UserFrosting\Tests\TestCase;

@@ -8,7 +8,7 @@
  * @license   https://github.com/lcharette/UF_Breadcrumb/blob/master/LICENSE (MIT License)
  */
 
-namespace UserFrosting\Sprinkle\Breadcrumb\Tests;
+namespace UserFrosting\Sprinkle\Breadcrumb\Tests\Integration;
 
 use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager;
 use UserFrosting\Sprinkle\Core\Tests\withController;
@@ -18,7 +18,7 @@ use UserFrosting\UniformResourceLocator\ResourceLocator;
 /**
  * Perform functional test with a stub controller.
  */
-class ControllerTest extends TestCase
+class BreadcrumbTest extends TestCase
 {
     use withController;
 
