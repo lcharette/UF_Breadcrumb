@@ -21,7 +21,7 @@ class Crumb
     protected $title;
 
     /**
-     * @var array Placeholder array for the title message into translator
+     * @var mixed[] Placeholder array for the title message into translator
      */
     protected $title_placeholder;
 
@@ -31,29 +31,22 @@ class Crumb
     protected $route;
 
     /**
-     * @var bool Is this an active node.
-     */
-    protected $active;
-
-    /**
      * Create a new Item object.
      *
      * @param string $title
      * @param string $uri
-     * @param bool   $active
      */
-    public function __construct(string $title = '', string $uri = '', bool $active = false)
+    public function __construct(string $title = '', string $uri = '')
     {
         $this->setTitle($title);
         $this->setUri($uri);
-        $this->setActive($active);
     }
 
     /**
      * Set the title message key for translator.
      *
      * @param string $title       The title message key for translator
-     * @param array  $placeholder
+     * @param mixed[]  $placeholder
      *
      * @return self
      */
@@ -70,7 +63,7 @@ class Crumb
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -78,18 +71,18 @@ class Crumb
     /**
      * Get placeholder array for the title message into translator.
      *
-     * @return array
+     * @return mixed[]
      */
-    public function getTitlePlaceholder()
+    public function getTitlePlaceholder(): array
     {
         return $this->title_placeholder;
     }
 
     /**
-     * Set the uri.
+     * Set the uri from a route.
      *
      * @param string $name The uri
-     * @param array  $data
+     * @param mixed[]  $data
      *
      * @return self
      */
@@ -100,6 +93,13 @@ class Crumb
         return $this;
     }
 
+    /**
+     * Set the raw uri.
+     *
+     * @param string $uri
+     *
+     * @return self
+     */
     public function setUri(string $uri)
     {
         $this->route = $uri;
@@ -115,29 +115,5 @@ class Crumb
     public function getRoute()
     {
         return $this->route;
-    }
-
-    /**
-     * Set is this an active node.
-     *
-     * @param bool $active Is this an active node
-     *
-     * @return self
-     */
-    public function setActive(bool $active)
-    {
-        $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * Get is this an active node.
-     *
-     * @return bool
-     */
-    public function getActive()
-    {
-        return $this->active;
     }
 }

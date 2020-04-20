@@ -94,7 +94,6 @@ class ManagerTest extends TestCase
             [
                 'title'  => 'My Site',
                 'uri'    => '/',
-                'active' => false,
             ],
         ], $manager->generate());
     }
@@ -123,12 +122,11 @@ class ManagerTest extends TestCase
 
         $crumb = new Crumb();
         $crumb->setTitle('Last Title', ['foo' => 'bar'])
-              ->setRoute('Foo', ['Bar' => 'Foo'])
-              ->setActive(true);
+              ->setRoute('Foo', ['Bar' => 'Foo']);
 
-        $manager->addCrumb(new Crumb('Middle Title', '/Middle', false))
+        $manager->addCrumb(new Crumb('Middle Title', '/Middle'))
                 ->addCrumb($crumb)
-                ->prependCrumb(new Crumb('First Title', 'Bar', false));
+                ->prependCrumb(new Crumb('First Title', 'Bar'));
 
         $this->assertCount(3, $manager->getCrumbs());
         $this->assertContainsOnlyInstancesOf(Crumb::class, $manager->getCrumbs());
@@ -136,22 +134,18 @@ class ManagerTest extends TestCase
             [
                 'title'  => 'My Site',
                 'uri'    => '/',
-                'active' => false,
             ],
             [
                 'title'  => 'First Title',
                 'uri'    => 'Bar',
-                'active' => false,
             ],
             [
                 'title'  => 'Middle Title',
                 'uri'    => '/Middle',
-                'active' => false,
             ],
             [
                 'title'  => 'Last Title',
                 'uri'    => '/Foo',
-                'active' => true,
             ],
         ], $manager->generate());
 
@@ -159,17 +153,14 @@ class ManagerTest extends TestCase
             [
                 'title'  => 'First Title',
                 'uri'    => 'Bar',
-                'active' => false,
             ],
             [
                 'title'  => 'Middle Title',
                 'uri'    => '/Middle',
-                'active' => false,
             ],
             [
                 'title'  => 'Last Title',
                 'uri'    => '/Foo',
-                'active' => true,
             ],
         ], $manager->generate(false));
     }
@@ -196,9 +187,9 @@ class ManagerTest extends TestCase
 
         $manager = new Manager($config, $translator, $router);
 
-        $manager->add('Middle Title', '/Middle', false)
-                ->add(['Last Title', ['foo' => 'bar']], ['Foo', ['Bar' => 'Foo']], true)
-                ->prepend('First Title', 'Bar', false);
+        $manager->add('Middle Title', '/Middle')
+                ->add(['Last Title', ['foo' => 'bar']], ['Foo', ['Bar' => 'Foo']])
+                ->prepend('First Title', 'Bar');
 
         $this->assertCount(3, $manager->getCrumbs());
         $this->assertContainsOnlyInstancesOf(Crumb::class, $manager->getCrumbs());
@@ -206,22 +197,18 @@ class ManagerTest extends TestCase
             [
                 'title'  => 'My Site',
                 'uri'    => '/',
-                'active' => false,
             ],
             [
                 'title'  => 'First Title',
                 'uri'    => 'Bar',
-                'active' => false,
             ],
             [
                 'title'  => 'Middle Title',
                 'uri'    => '/Middle',
-                'active' => false,
             ],
             [
                 'title'  => 'Last Title',
                 'uri'    => '/Foo',
-                'active' => true,
             ],
         ], $manager->generate());
     }
@@ -238,7 +225,7 @@ class ManagerTest extends TestCase
         $manager = new Manager($config, $translator, $router);
 
         $this->expectException(InvalidArgumentException::class);
-        $manager->add([], '/Middle', false);
+        $manager->add([], '/Middle');
     }
 
     /**
@@ -253,7 +240,7 @@ class ManagerTest extends TestCase
         $manager = new Manager($config, $translator, $router);
 
         $this->expectException(InvalidArgumentException::class);
-        $manager->add('Title', [], false);
+        $manager->add('Title', []);
     }
 
     /**
@@ -270,7 +257,6 @@ class ManagerTest extends TestCase
             [
                 'title'  => 'Foo',
                 'uri'    => '/Bar',
-                'active' => true,
             ],
         ];
         $breadcrumb->add('Foo', '/Bar');

@@ -65,13 +65,13 @@ class Manager
      *
      * @param string $title  (default: "")
      * @param string $uri    (default: "")
-     * @param bool   $active (default: true)
      *
      * @return self
      */
-    public function add($title = '', $uri = '', $active = true)
+    public function add($title = '', $uri = '')
     {
-        $this->crumbs[] = $this->newCrumb($title, $uri, $active);
+        $crumb = $this->newCrumb($title, $uri);
+        $this->addCrumb($crumb);
 
         return $this;
     }
@@ -95,13 +95,13 @@ class Manager
      *
      * @param string $title  (default: "")
      * @param string $uri    (default: "")
-     * @param bool   $active (default: true)
      *
      * @return self
      */
-    public function prepend($title = '', $uri = '', $active = true)
+    public function prepend($title = '', $uri = '')
     {
-        array_unshift($this->crumbs, $this->newCrumb($title, $uri, $active));
+        $crumb = $this->newCrumb($title, $uri);
+        $this->prependCrumb($crumb);
 
         return $this;
     }
@@ -125,11 +125,10 @@ class Manager
      *
      * @param string $title
      * @param string $uri
-     * @param bool   $active
      *
      * @return Crumb
      */
-    protected function newCrumb($title = '', $uri = '', $active = true): Crumb
+    protected function newCrumb($title = '', $uri = ''): Crumb
     {
         $crumb = new Crumb();
 
@@ -151,9 +150,6 @@ class Manager
         } else {
             throw new InvalidArgumentException('Uri must be string or an array of [routename, data].');
         }
-
-        // Set active
-        $crumb->setActive($active);
 
         return $crumb;
     }
@@ -214,7 +210,6 @@ class Manager
         return [
             'title'  => $this->translator->translate($crumb->getTitle(), $crumb->getTitlePlaceholder()),
             'uri'    => $route,
-            'active' => $crumb->getActive(),
         ];
     }
 }

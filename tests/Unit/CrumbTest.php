@@ -28,115 +28,106 @@ class CrumbTest extends TestCase
         $this->assertSame('', $crumb->getTitle());
         $this->assertSame([], $crumb->getTitlePlaceholder());
         $this->assertSame('', $crumb->getRoute());
-        $this->assertSame(false, $crumb->getActive());
     }
 
     /**
      * @dataProvider crumbProvider
      */
-    public function testCrumbsConstructor($title, $route, $active): void
+    public function testCrumbsConstructor($title, $route): void
     {
-        $crumb = new Crumb($title, $route, $active);
+        $crumb = new Crumb($title, $route);
         $this->assertInstanceOf(Crumb::class, $crumb);
 
         $this->assertSame($title, $crumb->getTitle());
         $this->assertSame([], $crumb->getTitlePlaceholder());
         $this->assertSame($route, $crumb->getRoute());
-        $this->assertSame($active, $crumb->getActive());
     }
 
     /**
      * @dataProvider crumbProvider
      */
-    public function testCrumbs($title, $route, $active): void
+    public function testCrumbs($title, $route): void
     {
         $crumb = new Crumb();
         $crumb->setTitle($title)
-              ->setUri($route)
-              ->setActive($active);
+              ->setUri($route);
         $this->assertInstanceOf(Crumb::class, $crumb);
 
         $this->assertSame($title, $crumb->getTitle());
         $this->assertSame([], $crumb->getTitlePlaceholder());
         $this->assertSame($route, $crumb->getRoute());
-        $this->assertSame($active, $crumb->getActive());
     }
 
     /**
      * @dataProvider crumbProvider
      */
-    public function testCrumbsData($title, $route, $active, $placeholders, $data): void
+    public function testCrumbsData($title, $route, $placeholders, $data): void
     {
         $crumb = new Crumb();
         $crumb->setTitle($title, $placeholders)
-              ->setRoute($route, $data)
-              ->setActive($active);
+              ->setRoute($route, $data);
         $this->assertInstanceOf(Crumb::class, $crumb);
 
         $this->assertSame($title, $crumb->getTitle());
         $this->assertSame($placeholders, $crumb->getTitlePlaceholder());
         $this->assertSame([$route, $data], $crumb->getRoute());
-        $this->assertSame($active, $crumb->getActive());
     }
 
     /**
      * @dataProvider badCrumbProvider
      */
-    public function testBadCrumbsConstructor($title, $route, $active): void
+    public function testBadCrumbsConstructor($title, $route): void
     {
         $this->expectException(\TypeError::class);
-        new Crumb($title, $route, $active);
+        new Crumb($title, $route);
     }
 
     /**
      * @dataProvider badCrumbProviderData
      */
-    public function testBadCrumbsData($title, $route, $active, $placeholders, $data): void
+    public function testBadCrumbsData($title, $route, $placeholders, $data): void
     {
         $crumb = new Crumb();
 
         $this->expectException(\TypeError::class);
         $crumb->setTitle($title, $placeholders)
-              ->setRoute($route, $data)
-              ->setActive($active);
+              ->setRoute($route, $data);
     }
 
     /**
-     * [$title, $route, $active, $placeholders, $data]
+     * [$title, $route, $placeholders, $data]
      */
     public function crumbProvider()
     {
         return [
-            ['foo', 'bar', true, [], []],
-            ['foo', 'bar', false, [], []],
-            ['bar', 'foo', true, ['ME' => 'MOI'], ['arg' => 'blah']],
-            ['', '', true, ['ME' => 'MOI'], ['arg' => 'blah']],
+            ['foo', 'bar', [], []],
+            ['foo', 'bar', [], []],
+            ['bar', 'foo', ['ME' => 'MOI'], ['arg' => 'blah']],
+            ['', '', ['ME' => 'MOI'], ['arg' => 'blah']],
         ];
     }
 
     /**
-     * [$title, $route, $active, $placeholders, $data]
+     * [$title, $route, $placeholders, $data]
      */
     public function badCrumbProvider()
     {
         return [
-            [null, 'bar', true],
-            ['foo', [], false],
-            ['bar', 'foo', []],
+            [null, 'bar'],
+            ['foo', []],
         ];
     }
 
     /**
-     * [$title, $route, $active, $placeholders, $data]
+     * [$title, $route, $placeholders, $data]
      */
     public function badCrumbProviderData()
     {
         return [
-            [null, 'bar', true, [], []],
-            ['foo', [], false, [], []],
-            ['bar', 'foo', [], [], []],
-            ['foo', 'bar', true, 'blah', []],
-            ['foo', 'bar', true, [], null],
+            [null, 'bar', [], []],
+            ['foo', [], [], []],
+            ['foo', 'bar', 'blah', []],
+            ['foo', 'bar', [], null],
         ];
     }
 }
