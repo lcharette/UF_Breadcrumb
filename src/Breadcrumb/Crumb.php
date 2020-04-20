@@ -45,8 +45,8 @@ class Crumb
     /**
      * Set the title message key for translator.
      *
-     * @param string $title       The title message key for translator
-     * @param mixed[]  $placeholder
+     * @param string  $title       The title message key for translator
+     * @param mixed[] $placeholder
      *
      * @return self
      */
@@ -81,8 +81,8 @@ class Crumb
     /**
      * Set the uri from a route.
      *
-     * @param string $name The uri
-     * @param mixed[]  $data
+     * @param string  $name The uri
+     * @param mixed[] $data
      *
      * @return self
      */

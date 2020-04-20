@@ -63,8 +63,8 @@ class Manager
     /**
      * Add an crumb at the end of the breadcrumbs list.
      *
-     * @param string $title  (default: "")
-     * @param string $uri    (default: "")
+     * @param string $title (default: "")
+     * @param string $uri   (default: "")
      *
      * @return self
      */
@@ -93,8 +93,8 @@ class Manager
     /**
      * Prepend an crumb at the beginning of the breadcrumbs list.
      *
-     * @param string $title  (default: "")
-     * @param string $uri    (default: "")
+     * @param string $title (default: "")
+     * @param string $uri   (default: "")
      *
      * @return self
      */
