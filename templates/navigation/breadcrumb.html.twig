@@ -1,20 +1,17 @@
 {% if breadcrumbs is not empty %}
 <ol class="breadcrumb">
   {% for item in breadcrumbs %}
-          <li{% if item.active %} class="active"{% endif %}>
-                {% if item.uri and not item.last %}<a href="{{item.uri}}">{% endif %}
-                    {% if item.first %}<i class="fa fa-home"></i> {% endif %}
-                    {{item.title}}
-                {% if item.uri %}</a>{% endif %}
-          </li>
+    {% if loop.last and breadcrumbs|length > 1 %}
+    <li class="active">{{item.title}}</li>
+    {% else %}
+    <li>{% if item.uri %}<a href="{{item.uri}}">{% endif %}{% if loop.first %}<i class="fa fa-home"></i> {% endif %}{{item.title}}{% if item.uri %}</a>{% endif %}</li>
+    {% endif %}
   {% endfor %}
-  {% if breadcrumbs|length < 2 %}
-    <li class="active">{{ page_title | raw }}</li>
-  {% endif  %}
+  {% if breadcrumbs|length < 2 %}<li class="active">{{ page_title | raw }}</li>{% endif  %}
 </ol>
 {% else %}
 <ol class="breadcrumb">
-    <li><a href="{{site.uri.public}}"><i class="fa fa-home"></i> {{site.title}}</a></li>
-    <li class="active">{{ page_title | raw }}</li>
+  <li><a href="{{site.uri.public}}"><i class="fa fa-home"></i> {{site.title}}</a></li>
+  <li class="active">{{ page_title | raw }}</li>
 </ol>
 {% endif %}
