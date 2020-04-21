@@ -63,12 +63,12 @@ class Manager
     /**
      * Add an crumb at the end of the breadcrumbs list.
      *
-     * @param string $title (default: "")
-     * @param string $uri   (default: "")
+     * @param string|array<string|mixed> $title
+     * @param string|array<string|mixed> $uri   (default: "")
      *
      * @return self
      */
-    public function add($title = '', $uri = '')
+    public function add($title, $uri = '')
     {
         $crumb = $this->newCrumb($title, $uri);
         $this->addCrumb($crumb);
@@ -93,12 +93,12 @@ class Manager
     /**
      * Prepend an crumb at the beginning of the breadcrumbs list.
      *
-     * @param string $title (default: "")
-     * @param string $uri   (default: "")
+     * @param string|array<string|mixed> $title
+     * @param string|array<string|mixed> $uri   (default: "")
      *
      * @return self
      */
-    public function prepend($title = '', $uri = '')
+    public function prepend($title, $uri = '')
     {
         $crumb = $this->newCrumb($title, $uri);
         $this->prependCrumb($crumb);
@@ -123,12 +123,12 @@ class Manager
     /**
      * Added a new Crumb instance.
      *
-     * @param string $title
-     * @param string $uri
+     * @param string|array<string|mixed> $title
+     * @param string|array<string|mixed> $uri
      *
      * @return Crumb
      */
-    protected function newCrumb($title = '', $uri = ''): Crumb
+    protected function newCrumb($title, $uri = ''): Crumb
     {
         $crumb = new Crumb();
 
@@ -197,7 +197,7 @@ class Manager
      *
      * @param Crumb $crumb
      *
-     * @return array<string,string|bool>
+     * @return array<string,string>
      */
     protected function crumbToArray(Crumb $crumb): array
     {
