@@ -20,11 +20,11 @@ jobs:
       runs-on: ubuntu-latest
       name: PHPUnit - PHP ${{ matrix.php_versions }} - UF ${{ matrix.uf_versions }}
 
-      env:
-        TEST_DB: default
-        UF_MODE: debug
-        DB_DRIVER: sqlite
-        DB_NAME: database/database.sqlite
+      # env:
+      #   TEST_DB: default
+      #   UF_MODE: debug
+      #   DB_DRIVER: sqlite
+      #   DB_NAME: database/database.sqlite
 
       steps:
       - uses: actions/checkout@v2
@@ -37,9 +37,9 @@ jobs:
           coverage: xdebug
           tools: pecl, composer:v1
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 10
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: 10
 
       - name: Clone UserFrosting
         run: | 
@@ -54,19 +54,19 @@ jobs:
       - name: Install Dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
       
-      - name: Create SQLite Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
+      # - name: Create SQLite Database
+      #   run: |
+      #     mkdir -p database
+      #     touch ${{ DB_NAME }}
       
-      - name: Bakery Debug
-        run: php bakery debug
+      # - name: Bakery Debug
+      #   run: php bakery debug
 
-      - name: Migrate DB
-        run: php bakery migrate
+      # - name: Migrate DB
+      #   run: php bakery migrate
 
-      - name: Build Assets
-        run: php bakery build-assets
+      # - name: Build Assets
+      #   run: php bakery build-assets
 
       - name: Execute tests
         run: app/vendor/bin/phpunit -c app/sprinkles/Breadcrumb/phpunit.xml --coverage-clover=app/sprinkles/Breadcrumb/coverage.xml
