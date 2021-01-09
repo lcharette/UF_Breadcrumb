@@ -41,14 +41,16 @@ jobs:
         with:
           node-version: 10
 
-      - name: Clone UserFrosting & Setup Sprinkle
+      - name: Clone UserFrosting
         run: | 
           cd ../
           composer create-project userfrosting/userfrosting UserFrosting ${{ matrix.uf_versions }} --no-install
-          cd UserFrosting
-          mv ../UF_Breadcrumb app/sprinkles/Breadcrumb/
-          echo "{\"base\":[\"core\",\"account\",\"admin\",\"Breadcrumb\"]}" > app/sprinkles.json
-            
+          mv ./UF_Breadcrumb ./UserFrosting/app/sprinkles/Breadcrumb/
+          mv ./UserFrosting ./UF_Breadcrumb
+
+      - name: Setup Sprinkles 
+        run: echo "{\"base\":[\"core\",\"account\",\"admin\",\"Breadcrumb\"]}" > ./app/sprinkles.json
+
       - name: Install Dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
       
