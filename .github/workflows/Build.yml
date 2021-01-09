@@ -43,6 +43,7 @@ jobs:
 
       - name: Clone UserFrosting & Setup Sprinkle
         run: | 
+          cd ../
           composer create-project userfrosting/userfrosting UserFrosting ${{ matrix.uf_versions }} --no-install
           cd UserFrosting
           mv ../UF_Breadcrumb app/sprinkles/Breadcrumb/
