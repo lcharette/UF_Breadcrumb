@@ -75,5 +75,4 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           root_dir: ./app/sprinkles/Breadcrumb/
-          file: ./coverage.xml
           fail_ci_if_error: true
