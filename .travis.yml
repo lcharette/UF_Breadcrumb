@@ -23,6 +23,8 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
+  # Force use of Composer 1.x
+  - composer self-update --1
   # clone UserFrosting
   - cd ../
   - composer create-project userfrosting/userfrosting UserFrosting $UF_BRANCH --no-install
