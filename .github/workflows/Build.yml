@@ -72,6 +72,7 @@ jobs:
         run: app/vendor/bin/phpunit -c app/sprinkles/Breadcrumb/phpunit.xml --coverage-clover=app/sprinkles/Breadcrumb/coverage.xml
       
       - name: Upload coverage to Codecov
+        if: github.event_name != 'schedule'
         uses: codecov/codecov-action@v1
         with:
           root_dir: ./app/sprinkles/Breadcrumb/
