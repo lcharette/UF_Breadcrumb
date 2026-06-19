@@ -23,6 +23,9 @@
 
 This Sprinkle provides an helper service and Twig template to manage simple page breadcrumb for [UserFrosting 4](https://www.userfrosting.com).
 
+> [!CAUTION]
+> This project has been archived. The features provided by this project are now built-in **UserFrosting 6**.
+
 # Help and Contributing
 
 If you need help using this sprinkle or found any bug, feels free to open an issue or submit a pull request. You can also find me on the [UserFrosting Chat](https://chat.userfrosting.com/) most of the time for direct support.
