@@ -10,26 +10,22 @@
 
 namespace UserFrosting\Sprinkle\Breadcrumb\Tests\Unit;
 
-use Mockery as m;
-use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use UserFrosting\Sprinkle\Breadcrumb\BreadcrumbManager;
+use UserFrosting\Sprinkle\Breadcrumb\Tests\BreadcrumbTestCase;
 use UserFrosting\Sprinkle\Breadcrumb\Twig\BreadcrumbExtension;
-use UserFrosting\Tests\TestCase;
 
 /**
  * Perform test for UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\BreadcrumbExtension
  */
-class BreadcrumbExtensionTest extends TestCase
+class BreadcrumbExtensionTest extends BreadcrumbTestCase
 {
-    public function tearDown(): void
-    {
-        parent::tearDown();
-        m::close();
-    }
-
     public function testConstructor(): void
     {
-        $manager = m::mock(Manager::class);
-        $manager->shouldReceive('generate')->withArgs([])->andReturn([]);
+        $manager = Mockery::mock(BreadcrumbManager::class)
+            ->shouldReceive('generate')->withArgs([])->andReturn([])
+            ->getMock();
 
         $extension = new BreadcrumbExtension($manager);
         $this->assertInstanceOf(BreadcrumbExtension::class, $extension);

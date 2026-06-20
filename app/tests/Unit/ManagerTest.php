@@ -12,19 +12,22 @@ namespace UserFrosting\Sprinkle\Breadcrumb\Tests\Unit;
 
 use InvalidArgumentException;
 use Mockery as m;
+use UserFrosting\Config\Config;
 use UserFrosting\I18n\Translator;
-use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Crumb;
-use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager;
+use UserFrosting\Sprinkle\Breadcrumb\Breadcrumb;
+use UserFrosting\Sprinkle\Breadcrumb\BreadcrumbManager;
+use UserFrosting\Sprinkle\Breadcrumb\Crumb;
+use UserFrosting\Sprinkle\Breadcrumb\Tests\BreadcrumbTestCase;
 use UserFrosting\Sprinkle\Core\Router;
+use UserFrosting\Sprinkle\Core\Util\RouteParserInterface;
 use UserFrosting\Support\Repository\Repository;
-use UserFrosting\Tests\TestCase;
 
 /**
  * ManagerTest
  *
- * Perform test for UserFrosting\Sprinkle\Breadcrumb\Breadcrumb\Manager
+ * Perform test for UserFrosting\Sprinkle\Breadcrumb\Manager
  */
-class ManagerTest extends TestCase
+class ManagerTest extends BreadcrumbTestCase
 {
     public function tearDown(): void
     {
@@ -34,12 +37,12 @@ class ManagerTest extends TestCase
 
     public function testConstructor(): void
     {
-        $config = m::mock(Repository::class);
+        $config = m::mock(Config::class);
         $translator = m::mock(Translator::class);
-        $router = m::mock(Router::class);
+        $router = m::mock(RouteParserInterface::class);
 
-        $manager = new Manager($config, $translator, $router);
-        $this->assertInstanceOf(Manager::class, $manager);
+        $manager = new BreadcrumbManager($config, $translator, $router);
+        $this->assertInstanceOf(BreadcrumbManager::class, $manager);
 
         $this->assertCount(0, $manager->getCrumbs());
         $this->assertSame([], $manager->generate(false));
@@ -51,25 +54,12 @@ class ManagerTest extends TestCase
      */
     public function testConstructorOldVersion(): void
     {
-        $config = m::mock(Repository::class);
-        $translator = m::mock('\UserFrosting\I18n\MessageTranslator');
-        $router = m::mock(Router::class);
+        $config = m::mock(Config::class);
+        $translator = m::mock(Translator::class);
+        $router = m::mock(RouteParserInterface::class);
 
-        $manager = new Manager($config, $translator, $router);
-        $this->assertInstanceOf(Manager::class, $manager);
-    }
-
-    /**
-     * @depends testConstructor
-     */
-    public function testConstructorInvalidTranlator(): void
-    {
-        $config = m::mock(Repository::class);
-        $translator = m::mock('\UserFrosting\I18n\FooTranslator');
-        $router = m::mock(Router::class);
-
-        $this->expectException(InvalidArgumentException::class);
-        $manager = new Manager($config, $translator, $router);
+        $manager = new BreadcrumbManager($config, $translator, $router);
+        $this->assertInstanceOf(BreadcrumbManager::class, $manager);
     }
 
     /**
@@ -77,17 +67,17 @@ class ManagerTest extends TestCase
      */
     public function testBasics(): void
     {
-        $config = m::mock(Repository::class);
+        $config = m::mock(Config::class);
         $config->shouldReceive('offsetGet')->withArgs(['site.title'])->andReturn('My Site');
 
         $translator = m::mock(Translator::class);
         $translator->shouldReceive('translate')->withArgs(['My Site', []])->andReturn('My Site');
 
-        $router = m::mock(Router::class);
-        $router->shouldReceive('pathFor')->withArgs(['/', []])->andReturn('/');
+        $router = m::mock(RouteParserInterface::class);
+        $router->shouldReceive('urlFor')->withArgs(['/', []])->andReturn('/');
 
-        $manager = new Manager($config, $translator, $router);
-        $this->assertInstanceOf(Manager::class, $manager);
+        $manager = new BreadcrumbManager($config, $translator, $router);
+        $this->assertInstanceOf(BreadcrumbManager::class, $manager);
 
         $this->assertCount(0, $manager->getCrumbs());
         $this->assertSame([
@@ -103,7 +93,7 @@ class ManagerTest extends TestCase
      */
     public function testAddPrependCrumb(): void
     {
-        $config = m::mock(Repository::class);
+        $config = m::mock(Config::class);
         $config->shouldReceive('offsetGet')->withArgs(['site.title'])->andReturn('My Site');
 
         $translator = m::mock(Translator::class);
@@ -112,13 +102,13 @@ class ManagerTest extends TestCase
         $translator->shouldReceive('translate')->withArgs(['Middle Title', []])->twice()->andReturn('Middle Title');
         $translator->shouldReceive('translate')->withArgs(['Last Title', ['foo' => 'bar']])->twice()->andReturn('Last Title');
 
-        $router = m::mock(Router::class);
-        $router->shouldReceive('pathFor')->withArgs(['/', []])->never();
-        $router->shouldReceive('pathFor')->withArgs(['Bar', []])->never();
-        $router->shouldReceive('pathFor')->withArgs(['/Middle', []])->never();
-        $router->shouldReceive('pathFor')->withArgs(['Foo', ['Bar' => 'Foo']])->twice()->andReturn('/Foo');
+        $router = m::mock(RouteParserInterface::class);
+        $router->shouldReceive('urlFor')->withArgs(['/', []])->never();
+        $router->shouldReceive('urlFor')->withArgs(['Bar', []])->never();
+        $router->shouldReceive('urlFor')->withArgs(['/Middle', []])->never();
+        $router->shouldReceive('urlFor')->withArgs(['Foo', ['Bar' => 'Foo']])->twice()->andReturn('/Foo');
 
-        $manager = new Manager($config, $translator, $router);
+        $manager = new BreadcrumbManager($config, $translator, $router);
 
         $crumb = new Crumb();
         $crumb->setTitle('Last Title', ['foo' => 'bar'])
@@ -170,7 +160,7 @@ class ManagerTest extends TestCase
      */
     public function testAddPrepend(): void
     {
-        $config = m::mock(Repository::class);
+        $config = m::mock(Config::class);
         $config->shouldReceive('offsetGet')->withArgs(['site.title'])->andReturn('My Site');
 
         $translator = m::mock(Translator::class);
@@ -179,13 +169,13 @@ class ManagerTest extends TestCase
         $translator->shouldReceive('translate')->withArgs(['Middle Title', []])->once()->andReturn('Middle Title');
         $translator->shouldReceive('translate')->withArgs(['Last Title', ['foo' => 'bar']])->once()->andReturn('Last Title');
 
-        $router = m::mock(Router::class);
-        $router->shouldReceive('pathFor')->withArgs(['/', []])->never();
-        $router->shouldReceive('pathFor')->withArgs(['Bar', []])->never();
-        $router->shouldReceive('pathFor')->withArgs(['/Middle', []])->never();
-        $router->shouldReceive('pathFor')->withArgs(['Foo', ['Bar' => 'Foo']])->once()->andReturn('/Foo');
+        $router = m::mock(RouteParserInterface::class);
+        $router->shouldReceive('urlFor')->withArgs(['/', []])->never();
+        $router->shouldReceive('urlFor')->withArgs(['Bar', []])->never();
+        $router->shouldReceive('urlFor')->withArgs(['/Middle', []])->never();
+        $router->shouldReceive('urlFor')->withArgs(['Foo', ['Bar' => 'Foo']])->once()->andReturn('/Foo');
 
-        $manager = new Manager($config, $translator, $router);
+        $manager = new BreadcrumbManager($config, $translator, $router);
 
         $manager->add('Middle Title', '/Middle')
                 ->add(['Last Title', ['foo' => 'bar']], ['Foo', ['Bar' => 'Foo']])
@@ -218,11 +208,11 @@ class ManagerTest extends TestCase
      */
     public function testWithInvalidTitle(): void
     {
-        $config = m::mock(Repository::class);
+        $config = m::mock(Config::class);
         $translator = m::mock(Translator::class);
-        $router = m::mock(Router::class);
+        $router = m::mock(RouteParserInterface::class);
 
-        $manager = new Manager($config, $translator, $router);
+        $manager = new BreadcrumbManager($config, $translator, $router);
 
         $this->expectException(InvalidArgumentException::class);
         $manager->add([], '/Middle');
@@ -233,11 +223,11 @@ class ManagerTest extends TestCase
      */
     public function testWithInvalidRoute(): void
     {
-        $config = m::mock(Repository::class);
+        $config = m::mock(Config::class);
         $translator = m::mock(Translator::class);
-        $router = m::mock(Router::class);
+        $router = m::mock(RouteParserInterface::class);
 
-        $manager = new Manager($config, $translator, $router);
+        $manager = new BreadcrumbManager($config, $translator, $router);
 
         $this->expectException(InvalidArgumentException::class);
         $manager->add('Title', []);
@@ -249,8 +239,8 @@ class ManagerTest extends TestCase
     public function testService(): void
     {
         /** @var Manager */
-        $breadcrumb = $this->ci->breadcrumb;
-        $this->assertInstanceOf(Manager::class, $breadcrumb);
+        $breadcrumb = $this->ci->get(BreadcrumbManager::class);
+        $this->assertInstanceOf(BreadcrumbManager::class, $breadcrumb);
 
         // Test with real life services
         $expected = [
